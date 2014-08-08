@@ -1,72 +1,30 @@
 //converts regular English to l33t
-//Anton Cao 8/4/14
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include <string>
-#include <stdio.h>
-#include <ctype.h>
 
 using namespace std;
-string input;
-string snewLineSignal = "*";
-string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-string gameAlpha[] = {"4","|8","(","|)","3","|=","6","#","1","J","|<","|_","|V|","/V","0","|>","(,)","|2","5","7","(_)","\/","VV","><","Y","2"};
+string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; //regular alphabet
+string gameAlpha[] = {"4","8","(","|)","3","|=","6","#","1","J","|<","|_","|V|","/V","0","|>","(,)","|2","5","7","(_)","\/","VV","><","Y","2"}; //l33t alphabet
 
-string convert(char a){
-    string b;
-    int index = 0;
-    for(int i = 0; i < 52; i++){
-        if(a==alpha[i]){
-            index = (i)%26;
-        }
-    }
-    b = gameAlpha[index];
-    return b;
+string convert(char a){ //function converts letters to corresponding l33t symbol
+    return gameAlpha[alpha.find(a) % 26]; //finds index and returns corresponding l33t symbol
 }
 
 int main()
 {
-    bool file = true;
-    //reads in input
-    if(file){
-        //from file
-        ifstream fin("input.in");
-
-        string inputLine;
-
-        fin>>inputLine;
-        input=inputLine;
-
-        while(getline(fin,inputLine)){
-            istringstream iss(inputLine);
-            input.append(inputLine);
-            input.append(snewLineSignal);
-        }
-        fin.close();
-    }else{
-        //from input
-        getline(cin,input);
-    }
-
-    //processes input
+    ifstream fin("input.in");
     ofstream fout("output.out");
-
-    int i = 0;
-    while(input[i]){
-        if(input[i]=='*'){
-            fout<<endl;
-            cout<<endl;
-        }else if(isalpha(input[i])){
-            fout<<convert(input[i]);
-            cout<<convert(input[i]);
-        }else{
-            fout<<input[i];
-            cout<<input[i];
+    char ch; // variable for each letter of input
+    while (fin >> noskipws >> ch) { //doesn't skip spaces
+        if(isalpha(ch)){ //if it is a letter, convert to l33t
+            fout<<convert(ch);
+            cout<<convert(ch);
+        }else{ //otherwise, keep as is
+            fout<<ch;
+            cout<<ch;
         }
-        i++;
     }
-
+    fin.close();
     fout.close();
 
     return 0;
