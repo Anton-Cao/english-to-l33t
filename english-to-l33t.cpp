@@ -3,7 +3,6 @@
 #include <fstream>
 
 using namespace std;
-string alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; //regular alphabet
 string gameAlpha[] = {"4","8","(","|)","3","|=","6","#","1","J","|<","|_","|V|","/V","0","|>","(,)","|2","5","7","(_)","\/","VV","><","Y","2"}; //l33t alphabet
 
 string convert(char a){ //function converts letters to corresponding l33t symbol
